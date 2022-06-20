@@ -1,6 +1,7 @@
-package Rendering
+package GameEnjin.Rendering.Swing
 
-import Geometry.Vector2
+import GameEnjin.Geometry.Vector2
+import GameEnjin.Rendering.{Color, Drawer}
 
 import scala.swing.Graphics2D
 

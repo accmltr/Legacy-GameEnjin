@@ -1,4 +1,4 @@
-package Physics
+package GameEnjin.Physics
 
 class Physics {
   def step(physicsObjects: List[PhysicsObject], delta: Float = 1.0f / 60): Unit =

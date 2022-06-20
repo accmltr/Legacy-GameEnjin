@@ -1,6 +1,6 @@
-package Rendering
+package GameEnjin.Rendering
 
-import Geometry.Vector2
+import GameEnjin.Geometry.Vector2
 
 // Interface for drawing things to be displayed on the next frame.
 trait Drawer {

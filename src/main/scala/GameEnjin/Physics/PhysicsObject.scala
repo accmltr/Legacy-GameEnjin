@@ -1,6 +1,6 @@
-package Physics
+package GameEnjin.Physics
 
-import Geometry.*
+import GameEnjin.Geometry.Vector2
 
 class PhysicsObject {
   var position: Vector2 = Vector2(0, 0)
