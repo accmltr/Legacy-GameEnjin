@@ -1,0 +1,5 @@
+package GameEnjin
+
+trait GameObjectComponent {
+
+}

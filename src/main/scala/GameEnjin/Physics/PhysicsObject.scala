@@ -1,8 +1,8 @@
 package GameEnjin.Physics
 
+import GameEnjin.GameObjectComponent
 import GameEnjin.Geometry.Vector2
 
-class PhysicsObject {
-  var position: Vector2 = Vector2(0, 0)
+class PhysicsObject extends GameObjectComponent{
   var velocity: Vector2 = Vector2(0, 0)
 }

@@ -1,8 +1,17 @@
 package GameEnjin
 
+import GameEnjin.Physics.Physics
+import GameEnjin.Rendering.Drawer
+import GameEnjin.Rendering.Swing.SwingDrawer
+
 import scala.swing.Graphics2D
 
-class Game extends App {
+class GameWorld extends App {
+  val physics: Physics = new Physics
+  val drawer: Drawer = new SwingDrawer
+  val startingPoint: List[GameObject] = List(new GameObject) 
+  
+  // Local vars:
   var running: Boolean = true
   var lastFrame: Long = 0
 
@@ -11,11 +20,11 @@ class Game extends App {
     while (running)
       if (System.nanoTime() - lastFrame > frameDuration)
         lastFrame = System.nanoTime()
-        loop
+        
+        // Run game:
+        drawer.draw
+        //
+        
         Thread.sleep((frameDuration - System.nanoTime() + lastFrame) / 1000000)
     println("GameEnjin.Game ended")
-
-  def drawLoop(g2d: Graphics2D) = {}
-  
-  def loop = {}
 }

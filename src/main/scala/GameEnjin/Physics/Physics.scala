@@ -1,8 +1,11 @@
 package GameEnjin.Physics
 
+import GameEnjin.GameObject
+
 class Physics {
-  def step(physicsObjects: List[PhysicsObject], delta: Float = 1.0f / 60): Unit =
+  def step(gameObjects: List[GameObject], delta: Float): Unit =
   // Mutates the state of the physicsObjects
-    for (o <- physicsObjects)
-      o.position += o.velocity * delta
+    for (o <- gameObjects)
+      val p = o.getComponent[PhysicsObject]
+      o.position += (p.velocity * delta)
 }
