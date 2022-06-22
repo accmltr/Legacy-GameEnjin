@@ -1,10 +1,11 @@
 package GameEnjin.Rendering.Swing
 
+import GameEnjin.GameObject
 import GameEnjin.Geometry.Vector2
 import GameEnjin.Rendering.{Color, Drawer}
 
 import java.awt.Graphics
-import javax.swing.JPanel
+import javax.swing.{JFrame, JPanel}
 import scala.swing.{Dimension, Graphics2D}
 
 class SwingDrawer extends Drawer {
@@ -15,12 +16,20 @@ class SwingDrawer extends Drawer {
       super.paint(g)
       onPaint(g.asInstanceOf[Graphics2D])
   }
+  val jframe = new JFrame()
+  jframe.add(jpanel)
+  jframe.pack()
+  jframe.setLocationRelativeTo(null)
+  jframe.setVisible(true)
+
+  var _gameObjects: List[GameObject] = new List[GameObject]()
 
   private def onPaint(g2d: Graphics2D) =
-    g2d.setPaint(java.awt.Color.orange)
-    g2d.drawString("Drawing", 50, 50)
+    _gameObjects.foreach(println(_.name))
 
-  override def draw: Unit =
+
+  override def draw(gameObjects: List[GameObject]): Unit =
+    _gameObjects = gameObjects
     jpanel.repaint()
 
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =

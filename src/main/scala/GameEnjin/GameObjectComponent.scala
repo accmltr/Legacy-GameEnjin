@@ -1,5 +1,3 @@
 package GameEnjin
 
-trait GameObjectComponent {
-
-}
+trait GameObjectComponent
