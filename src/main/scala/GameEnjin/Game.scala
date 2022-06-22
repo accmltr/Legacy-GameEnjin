@@ -1,3 +1,7 @@
+package GameEnjin
+
+import scala.swing.Graphics2D
+
 class Game extends App {
   var running: Boolean = true
   var lastFrame: Long = 0
@@ -9,7 +13,9 @@ class Game extends App {
         lastFrame = System.nanoTime()
         loop
         Thread.sleep((frameDuration - System.nanoTime() + lastFrame) / 1000000)
-    println("Game ended")
+    println("GameEnjin.Game ended")
 
+  def drawLoop(g2d: Graphics2D) = {}
+  
   def loop = {}
 }
