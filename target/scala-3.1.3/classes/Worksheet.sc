@@ -1,15 +1,5 @@
-import scala.reflect.ClassTag
+val f = 3.toLong
+val f2 = 10.toFloat
 
-trait Animal
-case class Dog() extends Animal
-case class Cat() extends Animal
-
-val animals: List[Animal] = List(Dog(), Dog())
-
-def containsAnimalSubtype[T : ClassTag](implicit cls: ClassTag[T]) =
-  animals.exists(cls.runtimeClass.isInstance(_))
-
-containsAnimalSubtype[Dog]
-containsAnimalSubtype[Cat]
-
-animals.exists(_.isInstanceOf[Cat])
+10/3.0
+10.0
