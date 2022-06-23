@@ -7,6 +7,7 @@ class Physics {
   // Mutates the state of the physicsObjects
     for (o <- gameObjects.filter(_.hasComponent[PhysicsObject]))
       if (o.hasComponent[PhysicsObject])
+        println("o.position: " + o.position)
         val p = o.getComponent[PhysicsObject]
         o.position += (p.velocity * delta)
 }

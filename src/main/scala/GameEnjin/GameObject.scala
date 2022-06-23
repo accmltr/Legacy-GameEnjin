@@ -9,9 +9,8 @@ class GameObject(var name: String) {
   var components: List[GameObjectComponent] = List.empty
 
   def addComponent(c: GameObjectComponent) = components = components :+ c
-  def hasComponent[T <: GameObjectComponent : ClassTag]: Boolean = components.exists(_.isInstanceOf[T])
-  def getComponent[T <: GameObjectComponent]: T =
-    val r = getComponents[T]
-    r.head
-  def getComponents[T <: GameObjectComponent]: List[T] = components.filter(_.isInstanceOf[T]).map(_.asInstanceOf[T])
+  def hasComponent[T <: GameObjectComponent : ClassTag](implicit cls: ClassTag[T]): Boolean = components.exists(cls.runtimeClass.isInstance(_))
+  def getComponent[T <: GameObjectComponent : ClassTag](implicit cls: ClassTag[T]): T =
+    components.filter(cls.runtimeClass.isInstance(_)).map(_.asInstanceOf[T]).head
+  def getComponents[T <: GameObjectComponent : ClassTag](implicit cls: ClassTag[T]): List[T] = components.filter(cls.runtimeClass.isInstance(_)).map(_.asInstanceOf[T])
 }
