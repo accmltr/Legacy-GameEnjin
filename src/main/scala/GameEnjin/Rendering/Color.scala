@@ -1,7 +1,9 @@
 package GameEnjin.Rendering
 
+
 class Color(val r: Float, val g: Float, val b: Float) {
   override def toString: String = "(%f, %f, %f)".format(r, g, b)
+  def asAwtColor = new java.awt.Color(r,g,b)
 }
 
 

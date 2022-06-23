@@ -2,7 +2,7 @@ package GameEnjin
 
 import GameEnjin.Geometry.{CircleShape, Vector2}
 import GameEnjin.Physics.Physics
-import GameEnjin.Rendering.{Drawer, ShapeVisual}
+import GameEnjin.Rendering.{Color, Drawer, ShapeVisual}
 import GameEnjin.Rendering.Swing.SwingDrawer
 
 import scala.swing.Graphics2D
@@ -12,7 +12,7 @@ class GameWorld extends App {
   val drawer: Drawer = new SwingDrawer
   val startingPoint: List[GameObject] = List(new GameObject("Eerste Game Object") {
     position = Vector2(40, 80)
-    addComponent(new ShapeVisual(new CircleShape(17)))
+    addComponent(new ShapeVisual(new CircleShape(17), Color.black))
   })
 
   // Local vars:
@@ -26,7 +26,8 @@ class GameWorld extends App {
         lastFrame = System.nanoTime()
 
         // Run game:
-        drawer.draw
+        physics.step(startingPoint, frameDuration)
+        drawer.draw(startingPoint)
         //
 
         Thread.sleep((frameDuration - System.nanoTime() + lastFrame) / 1000000)

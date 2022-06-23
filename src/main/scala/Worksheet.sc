@@ -1,3 +1,17 @@
+trait Animal
+case class Dog() extends Animal
+case class Cat() extends Animal
 
-val l = List(1,2,3,4,5)
-l.filter(_%2==0).map(_*2)
+val animals: List[Animal] = List(Dog(), Dog())
+
+def containsAnimalSubtype[T](l: List[Animal]) =
+  l.exists( (a: Animal) =>
+    a match
+      case _: T => true
+      case _ => false
+  )
+
+containsAnimalSubtype[Dog](animals)
+containsAnimalSubtype[Cat](animals)
+
+animals.exists(_.isInstanceOf[Cat])
