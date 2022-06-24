@@ -27,7 +27,7 @@ class GameWorld() extends App {
     val frameStartTime = System.nanoTime()
 
     // Run game:
-    physics.step(scene, (lastStartTime - frameStartTime) / 1000000000.0f)
+    physics.step(scene, (frameStartTime - lastStartTime) / 1000000000.0f)
     drawer.draw(scene)
     //
 

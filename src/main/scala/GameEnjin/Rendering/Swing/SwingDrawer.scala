@@ -1,7 +1,7 @@
 package gameEnjin.rendering.swing
 
 import gameEnjin.core.GameObject
-import gameEnjin.geometry.{CircleShape, Vector2}
+import gameEnjin.geometry._
 import gameEnjin.rendering.{Color, Drawer, ShapeVisuals}
 
 import java.awt.Graphics
@@ -44,6 +44,13 @@ class SwingDrawer extends Drawer {
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects
     jpanel.repaint()
+
+//  def drawShapeVisuals(s: ShapeVisuals) =
+//    s.shape match
+//      case CircleShape(radius) =>
+//        drawCricle()
+
+
 
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
     g2d.setPaint(color.asAwtColor)
