@@ -1,5 +1,3 @@
-val f = 3.toLong
-val f2 = 10.toFloat
 
-10/3.0
-10.0
+
+val l = List(1,43,4)

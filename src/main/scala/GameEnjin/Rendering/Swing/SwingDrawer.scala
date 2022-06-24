@@ -36,8 +36,7 @@ class SwingDrawer extends Drawer {
       _gameObjects.foreach {
         (go: GameObject) =>
           if (go.hasComponent[ShapeVisuals])
-            val sv = go.getComponent[ShapeVisuals]
-            drawCricle(go.position, sv.shape.asInstanceOf[CircleShape].radius, sv.color)
+            drawShapeVisuals(go.getComponent[ShapeVisuals])
       }
 
 
@@ -45,14 +44,22 @@ class SwingDrawer extends Drawer {
     _gameObjects = gameObjects
     jpanel.repaint()
 
-//  def drawShapeVisuals(s: ShapeVisuals) =
-//    s.shape match
-//      case CircleShape(radius) =>
-//        drawCricle()
+  def drawShapeVisuals(s: ShapeVisuals) =
+    s.shape match
+      case CircleShape(radius) =>
+        drawCricle(s.gameObject.position, radius, s.color)
+      case PolygonShape(points) =>
+
 
 
 
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
     g2d.setPaint(color.asAwtColor)
     g2d.fillOval(position.x.asInstanceOf[Int], position.y.asInstanceOf[Int], radius.asInstanceOf[Int], radius.asInstanceOf[Int])
+  override def drawPolygon(position: Vector2, points: List[Vector2], color: Color): Unit =
+    g2d.setPaint(color.asAwtColor)
+    g2d.
+
+    def g2dPolygonParams(): ()
+
 }
