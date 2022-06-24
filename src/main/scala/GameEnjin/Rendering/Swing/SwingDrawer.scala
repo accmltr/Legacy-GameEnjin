@@ -1,8 +1,8 @@
-package GameEnjin.Rendering.Swing
+package gameEnjin.rendering.swing
 
-import GameEnjin.GameObject
-import GameEnjin.Geometry.{CircleShape, Vector2}
-import GameEnjin.Rendering.{Color, Drawer, ShapeVisual}
+import gameEnjin.core.GameObject
+import gameEnjin.geometry.{CircleShape, Vector2}
+import gameEnjin.rendering.{Color, Drawer, ShapeVisuals}
 
 import java.awt.Graphics
 import javax.swing.{JFrame, JPanel, WindowConstants}
@@ -35,8 +35,8 @@ class SwingDrawer extends Drawer {
     if (_gameObjects.nonEmpty)
       _gameObjects.foreach {
         (go: GameObject) =>
-          if (go.hasComponent[ShapeVisual])
-            val sv = go.getComponent[ShapeVisual]
+          if (go.hasComponent[ShapeVisuals])
+            val sv = go.getComponent[ShapeVisuals]
             drawCricle(go.position, sv.shape.asInstanceOf[CircleShape].radius, sv.color)
       }
 

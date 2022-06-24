@@ -1,12 +1,12 @@
-package GameEnjin.Physics
+package gameEnjin.physics
 
-import GameEnjin.GameObject
+import gameEnjin.core.GameObject
 
 class Physics {
   def step(gameObjects: List[GameObject], delta: Float): Unit =
   // Mutates the state of the physicsObjects
-    for (o <- gameObjects.filter(_.hasComponent[PhysicsObject]))
-      val p = o.getComponent[PhysicsObject]
-      o.position += p.velocity * delta
-      p.velocity += p.accelertion * delta
+    for (o <- gameObjects.filter(_.hasComponent[Rigidbody]))
+      val r = o.getComponent[Rigidbody]
+      o.position += r.velocity * delta
+      r.velocity += r.accelertion * delta
 }

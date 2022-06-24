@@ -1,6 +1,6 @@
-package GameEnjin
+package gameEnjin.core
 
-import GameEnjin.Geometry.Vector2
+import gameEnjin.geometry.Vector2
 
 import scala.reflect.ClassTag
 

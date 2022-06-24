@@ -1,4 +1,4 @@
-package GameEnjin.Geometry
+package gameEnjin.geometry
 
 final class Vector2(val x: Float, val y: Float) {
   def +(o: Vector2) = Vector2(x + o.x, y + o.y)

@@ -1,4 +1,4 @@
-package GameEnjin.Geometry
+package gameEnjin.geometry
 
 trait Shape
 

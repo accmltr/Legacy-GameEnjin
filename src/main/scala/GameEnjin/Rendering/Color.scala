@@ -1,4 +1,4 @@
-package GameEnjin.Rendering
+package gameEnjin.rendering
 
 
 class Color(val r: Float, val g: Float, val b: Float) {

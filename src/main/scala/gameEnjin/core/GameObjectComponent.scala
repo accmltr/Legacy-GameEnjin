@@ -1,3 +1,3 @@
-package GameEnjin
+package gameEnjin.core
 
 trait GameObjectComponent
