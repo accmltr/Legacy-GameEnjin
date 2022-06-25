@@ -6,7 +6,7 @@ final class Vector2(val x: Float, val y: Float) {
   def *(f: Float) = Vector2(x * f, y * f)
   def /(f: Float) = this * (1 / f)
 
-  def length: Float = math.sqrt(x * x + y * y).asInstanceOf[Float]
+  def length: Float = math.sqrt(x * x + y * y).toFloat
   def normalize = this / length
 
   def angle = math.atan2(y, x)
@@ -20,5 +20,5 @@ final class Vector2(val x: Float, val y: Float) {
 
 object Vector2 {
   def apply(x: Float = 0, y: Float = 0) = new Vector2(x, y)
-  def fromAngle(angle: Float, length: Float = 1) = new Vector2(math.cos(angle).asInstanceOf[Float] * length, math.sin(angle).asInstanceOf[Float] * length)
+  def fromAngle(angle: Float, length: Float = 1) = new Vector2(math.cos(angle).toFloat * length, math.sin(angle).toFloat * length)
 }
