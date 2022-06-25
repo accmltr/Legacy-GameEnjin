@@ -31,7 +31,6 @@ class SwingDrawer extends Drawer {
 
   private def onPaint(g: Graphics2D) =
     g2d = g
-    g.drawString("hi", 30, 40)
     if (_gameObjects.nonEmpty)
       _gameObjects.foreach {
         (go: GameObject) =>
@@ -49,6 +48,7 @@ class SwingDrawer extends Drawer {
       case CircleShape(radius) =>
         drawCricle(s.gameObject.position, radius, s.color)
       case PolygonShape(points) =>
+        drawPolygon(s.gameObject.position, points, s.color)
 
 
 
@@ -58,8 +58,6 @@ class SwingDrawer extends Drawer {
     g2d.fillOval(position.x.asInstanceOf[Int], position.y.asInstanceOf[Int], radius.asInstanceOf[Int], radius.asInstanceOf[Int])
   override def drawPolygon(position: Vector2, points: List[Vector2], color: Color): Unit =
     g2d.setPaint(color.asAwtColor)
-    g2d.
-
-    def g2dPolygonParams(): ()
+    g2d.fillPolygon(points.map(p=>(p.x + position.x).toInt).toArray, points.map(p=>(p.y + position.y).toInt).toArray, points.length)
 
 }
