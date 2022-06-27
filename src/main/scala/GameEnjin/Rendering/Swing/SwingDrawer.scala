@@ -2,7 +2,7 @@ package gameEnjin.rendering.swing
 
 import gameEnjin.core.GameObject
 import gameEnjin.geometry._
-import gameEnjin.rendering.{Color, Drawer, ShapeVisuals}
+import gameEnjin.rendering._
 
 import java.awt.Graphics
 import javax.swing.{JFrame, JPanel, WindowConstants}
@@ -33,30 +33,20 @@ class SwingDrawer extends Drawer {
     _g2d = graphics2D
     _drawGameObjects(_gameObjects)
     def _drawGameObjects(l: List[GameObject]): Unit =
-      l.foreach { (go: GameObject) =>
-        go.components.foreach { c =>
-          if (c.isInstanceOf[ShapeVisuals]) drawShapeVisuals(c.asInstanceOf[ShapeVisuals])
-        }
-        _drawGameObjects(go.children)
+      l.foreach { o =>
+        o.getComponents[VisualData].foreach(_.draw(this))
+        _drawGameObjects(o.children)
       }
 
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects
     jpanel.repaint()
 
-  def drawShapeVisuals(s: ShapeVisuals) =
-    s.shape match
-      case CircleShape(radius) =>
-        drawCricle(s.gameObject.position, radius, s.color)
-      case PolygonShape(points) =>
-        drawPolygon(s.gameObject.position, points, s.color)
-
-
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)
     _g2d.fillOval((position.x - radius).toInt, (position.y - radius).toInt, (2 * radius).toInt, (2 * radius).toInt)
-  override def drawPolygon(position: Vector2, points: List[Vector2], color: Color): Unit =
+  override def drawPolygon(position: Vector2, polygon: PolygonShape, color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)
-    _g2d.fillPolygon(points.map(p => (p.x + position.x).toInt).toArray, points.map(p => (p.y + position.y).toInt).toArray, points.length)
+    _g2d.fillPolygon(polygon.points.map(p => (p.x + position.x).toInt).toArray, polygon.points.map(p => (p.y + position.y).toInt).toArray, polygon.points.length)
 
 }

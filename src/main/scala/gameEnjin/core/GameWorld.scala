@@ -3,7 +3,7 @@ package gameEnjin.core
 import gameEnjin.geometry.{CircleShape, Vector2}
 import gameEnjin.physics.{Physics, Rigidbody}
 import gameEnjin.rendering.swing.SwingDrawer
-import gameEnjin.rendering.{Color, Drawer, ShapeVisuals}
+import gameEnjin.rendering.{Color, Drawer, CircleVisualData}
 
 import scala.swing.Graphics2D
 
