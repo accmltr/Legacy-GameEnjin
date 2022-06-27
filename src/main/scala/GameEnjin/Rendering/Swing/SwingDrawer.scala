@@ -47,6 +47,9 @@ class SwingDrawer extends Drawer {
     _g2d.fillOval((position.x - radius).toInt, (position.y - radius).toInt, (2 * radius).toInt, (2 * radius).toInt)
   override def drawPolygon(position: Vector2, polygon: PolygonShape, color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)
-    _g2d.fillPolygon(polygon.points.map(p => (p.x + position.x).toInt).toArray, polygon.points.map(p => (p.y + position.y).toInt).toArray, polygon.points.length)
-
+    def _params(pts: List[Vector2], pxs: List[Int] = Nil, pys: List[Int] = Nil, n: Int = 0): (Array[Int], Array[Int], Int) =
+      if (pts.isEmpty) (pxs.toArray, pys.toArray, n)
+      else _params(pts.tail, (pts.head.x + position.x).toInt :: pxs, (pts.head.y + position.y).toInt :: pys, n + 1)
+    val params = _params(polygon.points)
+    _g2d.fillPolygon(params._1, params._2, params._3)
 }
