@@ -17,17 +17,18 @@ class GameWorld() extends App {
   private var running: Boolean = true
 
   def stop = running = false
-  def start(scene: List[GameObject]) =
-    loop(scene)
+  def start(scene: List[GameObject]) = loop(scene)
   private def loop(scene: List[GameObject], lastStartTime: Long = System.nanoTime()): Unit =
 
     // Stop game:
     if (!running) return
 
     val frameStartTime = System.nanoTime()
+    var deltaTime: Float= (frameStartTime - lastStartTime) / 1000000000.0f
 
     // Run game:
-    physics.step(scene, (frameStartTime - lastStartTime) / 1000000000.0f)
+    physics.step(scene, deltaTime)
+    scene.foreach(_.components.foreach(_.update(deltaTime)))
     drawer.draw(scene)
     //
 
@@ -40,5 +41,4 @@ class GameWorld() extends App {
   def setFPS(fps: Int) =
     FPS = fps
     frameDuration = (1000000000 / FPS.toDouble).toLong
-
 }

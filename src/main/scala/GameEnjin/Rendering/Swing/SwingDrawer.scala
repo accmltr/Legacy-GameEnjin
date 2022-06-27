@@ -11,7 +11,7 @@ import scala.swing.{Dimension, Graphics2D}
 class SwingDrawer extends Drawer {
 
   var _gameObjects: List[GameObject] = Nil
-  var g2d: Graphics2D = null
+  var _g2d: Graphics2D = null
   var k: Int = 0
 
   val jpanel: JPanel = new JPanel() {
@@ -29,15 +29,15 @@ class SwingDrawer extends Drawer {
   jframe.setVisible(true)
 
 
-  private def onPaint(g: Graphics2D) =
-    g2d = g
-    if (_gameObjects.nonEmpty)
-      _gameObjects.foreach {
-        (go: GameObject) =>
-          if (go.hasComponent[ShapeVisuals])
-            drawShapeVisuals(go.getComponent[ShapeVisuals])
+  private def onPaint(graphics2D: Graphics2D) =
+    _g2d = graphics2D
+    _drawGameObjects(_gameObjects)
+    def _drawGameObjects(l: List[GameObject]): Unit =
+      l.foreach { (go: GameObject) =>
+        if (go.hasComponent[ShapeVisuals])
+          drawShapeVisuals(go.getComponent[ShapeVisuals])
+        _drawGameObjects(go.children)
       }
-
 
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects
@@ -51,13 +51,11 @@ class SwingDrawer extends Drawer {
         drawPolygon(s.gameObject.position, points, s.color)
 
 
-
-
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
-    g2d.setPaint(color.asAwtColor)
-    g2d.fillOval(position.x.toInt, position.y.toInt, radius.toInt, radius.toInt)
+    _g2d.setPaint(color.asAwtColor)
+    _g2d.fillOval((position.x-radius).toInt, (position.y-radius).toInt, (2*radius).toInt, (2*radius).toInt)
   override def drawPolygon(position: Vector2, points: List[Vector2], color: Color): Unit =
-    g2d.setPaint(color.asAwtColor)
-    g2d.fillPolygon(points.map(p=>(p.x + position.x).toInt).toArray, points.map(p=>(p.y + position.y).toInt).toArray, points.length)
+    _g2d.setPaint(color.asAwtColor)
+    _g2d.fillPolygon(points.map(p => (p.x + position.x).toInt).toArray, points.map(p => (p.y + position.y).toInt).toArray, points.length)
 
 }
