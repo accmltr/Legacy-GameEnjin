@@ -29,11 +29,10 @@ object EenvoudigeGame extends GameWorld {
       local_position = Vector2(3,0)
       addComponent(new ShapeVisuals(PolygonShape(List(Vector2(-2, -4), Vector2(-2, 4), Vector2(2, 4), Vector2(2, -4))), Color(.50, .50, 0)))
     })
-    addChild(
-      new GameObject("Race Car Window") {
-        local_position = Vector2(-7,0)
-        addComponent(new ShapeVisuals(PolygonShape(List(Vector2(-1, -4), Vector2(-1, 4), Vector2(1, 4), Vector2(1, -4))), Color(.50, .50, 0) * .9))
-      })
+    new GameObject("Race Car Window") {
+      local_position = Vector2(-7,0)
+      addComponent(new ShapeVisuals(PolygonShape(List(Vector2(-1, -4), Vector2(-1, 4), Vector2(1, 4), Vector2(1, -4))), Color(.50, .50, 0) * .9))
+    }.parent = this
   },
     new GameObject("Race Car 2") {
       position = Vector2(40, 135)

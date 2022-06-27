@@ -12,5 +12,12 @@ lh.list
 var l = lh.list
 l = List(3,2,1)
 lh.list
-lh.list = List(3,2,1)
+lh.list = List(1,2,1)
 lh.list
+if (lh.list.head == 1)
+  if (lh.list.head == 1)
+    6
+else if (lh.list.head == 2)
+  7
+else
+  8
