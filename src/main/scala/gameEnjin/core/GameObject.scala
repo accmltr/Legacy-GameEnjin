@@ -7,7 +7,7 @@ import scala.reflect.ClassTag
 class GameObject(var name: String) {
   var parent: GameObject = null
   private var _children: List[GameObject] = Nil
-  var local_position: Vector2 = Vector2()
+  var local_position: Vector2 = Vector2.zero
   var components: List[GameObjectComponent] = List.empty
 
   def destroy =

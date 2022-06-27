@@ -1,6 +1,6 @@
 package gameEnjin.rendering
 
-import gameEnjin.math.Math.clamp
+import gameEnjin.fMath.clamp
 
 
 class Color(val r: Float, val g: Float, val b: Float) {
