@@ -34,8 +34,9 @@ class SwingDrawer extends Drawer {
     _drawGameObjects(_gameObjects)
     def _drawGameObjects(l: List[GameObject]): Unit =
       l.foreach { (go: GameObject) =>
-        if (go.hasComponent[ShapeVisuals])
-          drawShapeVisuals(go.getComponent[ShapeVisuals])
+        go.components.foreach { c =>
+          if (c.isInstanceOf[ShapeVisuals]) drawShapeVisuals(c.asInstanceOf[ShapeVisuals])
+        }
         _drawGameObjects(go.children)
       }
 
@@ -53,7 +54,7 @@ class SwingDrawer extends Drawer {
 
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)
-    _g2d.fillOval((position.x-radius).toInt, (position.y-radius).toInt, (2*radius).toInt, (2*radius).toInt)
+    _g2d.fillOval((position.x - radius).toInt, (position.y - radius).toInt, (2 * radius).toInt, (2 * radius).toInt)
   override def drawPolygon(position: Vector2, points: List[Vector2], color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)
     _g2d.fillPolygon(points.map(p => (p.x + position.x).toInt).toArray, points.map(p => (p.y + position.y).toInt).toArray, points.length)
