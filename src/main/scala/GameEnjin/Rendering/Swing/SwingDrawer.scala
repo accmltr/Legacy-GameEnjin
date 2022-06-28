@@ -31,12 +31,7 @@ class SwingDrawer extends Drawer {
 
   private def onPaint(graphics2D: Graphics2D) =
     _g2d = graphics2D
-    _drawGameObjects(_gameObjects)
-    def _drawGameObjects(l: List[GameObject]): Unit =
-      l.foreach { o =>
-        o.getComponents[VisualData].foreach(_.draw(this))
-        _drawGameObjects(o.children)
-      }
+    gameEnjin.utils.forAllGameObjectsAndChildren(_gameObjects, o => o.getComponents[VisualData].foreach(_.draw(this)))
 
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects

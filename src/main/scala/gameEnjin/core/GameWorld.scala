@@ -24,11 +24,12 @@ class GameWorld() extends App {
     if (!running) return
 
     val frameStartTime = System.nanoTime()
-    var deltaTime: Float= (frameStartTime - lastStartTime) / 1000000000.0f
+    val deltaTime: Float = (frameStartTime - lastStartTime) / 1000000000.0f
 
     // Run game:
     physics.step(scene, deltaTime)
-    scene.foreach(_.components.foreach(_.update(deltaTime)))
+    gameEnjin.utils.forAllGameObjectsAndChildren(scene,
+      (o:GameObject)=>o.components.foreach(_.update(deltaTime)))
     drawer.draw(scene)
     //
 
