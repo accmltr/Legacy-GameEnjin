@@ -17,9 +17,10 @@ class GameObject(var name: String) {
       if (newParent.children.forall(_ != this)) newParent.addChild(this)
     }
     else if (newParent == null) {
-      val prevParent = _parent
-      _parent = null
-      if (prevParent.children.exists(_ == this)) _parent.removeChild(this)
+      if (hasParent)
+        val prevParent = _parent
+        _parent = null
+        if (prevParent.children.exists(_ == this)) prevParent.removeChild(this)
     }
     else if (hasParent)
       parent = null

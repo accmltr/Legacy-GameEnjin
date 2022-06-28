@@ -24,15 +24,12 @@ object EenvoudigeGame extends GameWorld {
       accelertion = Vector2(12,0)
     })
     addComponent(new myscript)
-    addChild(
-    new GameObject("Race Car Window") {
-      local_position = Vector2(3,0)
-      addComponent(new PolygonVisualData(PolygonShape(List(Vector2(-2, -4), Vector2(-2, 4), Vector2(2, 4), Vector2(2, -4))), Color(.50, .50, 0)))
+    addComponent(new PolygonVisualData(PolygonShape(List(Vector2(-2, -4), Vector2(-2, 4), Vector2(2, 4), Vector2(2, -4))), Color(.50, .50, 0)){
+      offset = Vector2(3,0)
     })
-    new GameObject("Race Car Window") {
-      local_position = Vector2(-7,0)
-      addComponent(new PolygonVisualData(PolygonShape(List(Vector2(-1, -4), Vector2(-1, 4), Vector2(1, 4), Vector2(1, -4))), Color(.50, .50, 0) * .9))
-    }.parent = this
+    addComponent(new PolygonVisualData(PolygonShape(List(Vector2(-1, -4), Vector2(-1, 4), Vector2(1, 4), Vector2(1, -4))), Color(.50, .50, 0) * .9){
+      offset = Vector2(-7,0)
+    })
   },
     new GameObject("Race Car 2") {
       position = Vector2(40, 135)
@@ -40,6 +37,9 @@ object EenvoudigeGame extends GameWorld {
       addComponent(new Rigidbody {
         velocity = Vector2.zero
         accelertion = Vector2(12.1,0)
+      })
+      addChild(new GameObject("Circle on Car baby") {
+        addComponent(new CircleVisualData(CircleShape(3), Color.black))
       })
     })
 
