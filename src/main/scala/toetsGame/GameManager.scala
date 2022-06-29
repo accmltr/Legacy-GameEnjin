@@ -18,6 +18,8 @@ class GameManager extends GameObjectComponent {
     if (!has) {
       // Do _ready() code:
       println(gameObject.name + " is ready!")
+      println("world.FPS = " + gameObject.world.FPS)
+      println("world.physics = " + gameObject.world.physics)
 
       val varianceF: Float = 5
       for (i <- 1 to racerCount)
