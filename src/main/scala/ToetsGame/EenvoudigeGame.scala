@@ -8,7 +8,8 @@ import gameEnjin.rendering.{CircleVisualData, Color, PolygonVisualData}
 object EenvoudigeGame extends GameWorld {
 
   val scene: List[GameObject] = List(
-    new GameObject("Game Manager") {
+    new GameObject {
+      name = "Game Manager"
       addComponent(new GameManager)
     })
 

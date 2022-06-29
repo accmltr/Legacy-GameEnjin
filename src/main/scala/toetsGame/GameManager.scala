@@ -24,7 +24,8 @@ class GameManager extends GameObjectComponent {
       val varianceF: Float = 5
       for (i <- 1 to racerCount)
       // Add a racer:
-        val kar = new Karretjie("Kar " + i) {
+        val kar = new Karretjie {
+          name = "Kar " + i
           speed += Random.between(-varianceF, varianceF)
           position = Vector2(leftMargin, i * racerSpacing)
           parent = gameObject

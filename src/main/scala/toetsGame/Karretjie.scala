@@ -5,10 +5,11 @@ import gameEnjin.geometry.{PolygonShape, Vector2}
 import gameEnjin.physics.Rigidbody
 import gameEnjin.rendering.{Color, PolygonVisualData}
 
-class Karretjie(name: String) extends GameObject(name) {
+class Karretjie extends GameObject {
+  name = "Karretjie"
   var speed: Float = 20
   var finishLine: Float = 300
-  var gameManager: GameManager = null
+  var gameManager: GameManager = _
   var stopped = false
 
   // Kar script:

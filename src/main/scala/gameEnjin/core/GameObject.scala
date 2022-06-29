@@ -4,7 +4,8 @@ import gameEnjin.geometry.Vector2
 
 import scala.reflect.ClassTag
 
-class GameObject(var name: String) {
+class GameObject {
+  var name: String = "Unnamed GameObject"
   private var _world: GameWorld = _
   private var _parent: GameObject = _
   private var _children: List[GameObject] = Nil
