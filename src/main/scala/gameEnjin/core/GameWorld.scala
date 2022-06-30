@@ -78,11 +78,21 @@ class GameWorld() extends App {
 
     // Run game:
     physics.step(scene, deltaTime)
-    gameEnjin.utils.forAllGameObjectsAndChildren(scene.filterNot(_gameObjectsToRemove.contains(_)),
+    gameEnjin.utils.forAllGameObjectsAndChildren(scene,
       (o: GameObject) =>
+        if (!_running) println("World HAS STOPPED")
+        if (_gameObjectsToRemove.contains(o)) println("Found object to that is removed! -> " + o.name)
         if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
-          o.components.foreach(_.update(deltaTime))
-      )
+          _update_components(o.components, deltaTime)
+          @tailrec
+          def _update_components(cRemaining: List[GameObjectComponent], dTime:Float):Unit =
+            if (cRemaining.isEmpty) return;
+            cRemaining.head.update(dTime)
+            if (o.isDestroyed)
+              return;
+            _update_components(cRemaining.tail, dTime)
+
+    )
     val filteredScene = filterScene // Adds and removes game objects from loop
     drawer.draw(filteredScene)
     //
@@ -96,7 +106,10 @@ class GameWorld() extends App {
     // Run next loop:
     loop(filteredScene, frameStartTime)
 
+
   def stop(): Unit = _running = false
+
+  def running = _running
 
   def FPS = _FPS
 

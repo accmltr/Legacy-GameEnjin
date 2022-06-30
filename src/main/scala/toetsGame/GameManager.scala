@@ -49,4 +49,6 @@ class GameManager extends GameObjectComponent {
     winCount += 1
     println(kar.name + " het " + winCount + "de gekom!")
     kar.destroy()
+    println("kar destroyed, stopping world")
+    gameObject.world.stop()
 }
