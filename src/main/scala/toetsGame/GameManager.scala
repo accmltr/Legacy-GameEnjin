@@ -11,6 +11,7 @@ class GameManager extends GameObjectComponent {
   var racerCount: Int = 5
   var racerSpacing: Float = 20
   var leftMargin: Float = 20
+  var winCount: Int = 0
 
   var karretjies: List[Karretjie] = Nil
 
@@ -23,7 +24,7 @@ class GameManager extends GameObjectComponent {
 
       val varianceF: Float = 5
       for (i <- 1 to racerCount)
-      // Add a racer:
+        // Add a racer:
         val kar = new Karretjie {
           name = "Kar " + i
           speed += Random.between(-varianceF, varianceF)
@@ -31,17 +32,13 @@ class GameManager extends GameObjectComponent {
           parent = gameObject
         }
         kar.gameManager = this
-        karretjies=  kar:: karretjies
+        karretjies = kar :: karretjies
 
       has = true
     }
 
   def win(kar: Karretjie): Unit =
-    println(kar.name + " het gewen!")
-    karretjies.foreach(_.stopped = true)
-    // Delete al die karre:
-//    karretjies.foreach{ k =>
-//      k.parent = null
-//    }
-//    karretjies = Nil
+    winCount += 1
+    println(kar.name + " het " + winCount + "de gekom!")
+    kar.destroy()
 }

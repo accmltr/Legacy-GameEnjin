@@ -7,7 +7,7 @@ import gameEnjin.rendering.{Color, PolygonVisualData}
 
 class Karretjie extends GameObject {
   name = "Karretjie"
-  var speed: Float = 20
+  var speed: Float = 25
   var finishLine: Float = 300
   var gameManager: GameManager = _
   var stopped = false

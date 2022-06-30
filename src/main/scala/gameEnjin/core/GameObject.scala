@@ -6,66 +6,75 @@ import scala.reflect.ClassTag
 
 class GameObject {
   var name: String = "Unnamed GameObject"
+  private var _isDestroyed: Boolean = false
   private var _world: GameWorld = _
   private var _parent: GameObject = _
   private var _children: List[GameObject] = Nil
   var local_position: Vector2 = Vector2.zero
   var components: List[GameObjectComponent] = List.empty
 
+  def isDestroyed: Boolean = _isDestroyed
+
+  def destroy(): Unit =
+    _isDestroyed = true
+    parent = null
+    world = null
+
   def world: GameWorld = _world
-  def world_=(w:GameWorld): Unit =
-    if (w == _world) return
-    if (_world != null)
-      if (!hasParent)
-        _world.removeGameObject(this)
-        _world == null
-      else
-        throw new Exception("ERROR: Trying to remove a game object (name: "+name+") with a parent from the world's game loop. " +
-          "If this is the intention, remove the child from its parent first. " +
-          "\n If you want to delete this game object instead, use its destroy() method.")
+
+  def world_=(w: GameWorld): Unit =
+    if (w == _world) return;
+    if (hasWorld)
+      val previousWorld = _world
+      _world = null
+      if (!hasParent) previousWorld.removeGameObject(this)
+      _children.foreach(_.world = null)
     if (w != null)
       _world = w
-      if (!hasParent)
-        _world.addGameObject(this)
-        _children.foreach(_.world = w)
-      else _parent.world = _world
+      if (!hasParent)_world.addGameObject(this)
+      _children.foreach(_.world = w)
 
-  def parent = _parent
+  def hasWorld: Boolean = _world != null
+
+  def parent: GameObject = _parent
+
   def parent_=(newParent: GameObject): Unit =
+    if (parent == newParent) return;
     if (newParent == null) {
       if (hasParent)
         val prevParent = _parent
         _parent = null
-        if (prevParent.children.contains(this)) prevParent.removeChild(this)
+        prevParent.removeChild(this)
         world.addGameObject(this)
     }
     else if (!hasParent) {
       _parent = newParent
-      if (!newParent.children.contains(this)) newParent.addChild(this)
-      if (world != null) world.removeGameObject(this)
-      world = _parent.world
+      newParent.addChild(this)
+      if (world == newParent.world)
+        world.removeGameObject(this)
+      else
+        world = _parent.world
     }
     else if (hasParent)
       parent = null
       parent = newParent
 
-  def destroy =
-    if (hasParent) parent.removeChild(this)
-    println("Queue GameObject for removal: " + name)
+  def hasParent: Boolean = parent != null
 
-  def hasParent = parent != null
+  def children: List[GameObject] = _children
 
-  def children =
-    _children
+  def hasChild(go: GameObject): Boolean = children.contains(go)
 
-  def addChild(o: GameObject) =
-    _children = _children :+ o
-    if (o.parent != this) o.parent = this
+  def addChild(go: GameObject): Unit =
+    if (hasChild(go)) return;
+    _children = _children :+ go
+    go.parent = this
 
-  def removeChild(c: GameObject) =
-    _children = _children.filterNot(_ == c)
-    c.local_position = c.position
-    if (c.parent == this) c.parent = null
+  def removeChild(go: GameObject): Unit =
+    if (!hasChild(go)) return;
+    _children = _children.filterNot(_ == go)
+    go.local_position = go.position
+    go.parent = null
 
   def position: Vector2 =
     if (hasParent) parent.position + local_position else local_position
