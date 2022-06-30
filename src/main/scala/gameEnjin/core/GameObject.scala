@@ -32,18 +32,19 @@ class GameObject {
     _destroy_check()
     _world
 
-  def world_=(w: GameWorld): Unit =
+  def world_=(newWorld: GameWorld): Unit =
     _destroy_check()
-    if (w == _world) return;
+    if (newWorld == _world) return;
+    if (hasParent) parent = null
     if (hasWorld)
       val previousWorld = _world
       _world = null
-      if (!hasParent) previousWorld.removeGameObject(this)
-      _children.foreach(_.world = null)
-    if (w != null)
-      _world = w
-      if (!hasParent)_world.addGameObject(this)
-      _children.foreach(_.world = w)
+      previousWorld.removeGameObject(this)
+      _children.foreach(_._world = null)
+    if (newWorld != null)
+      _world = newWorld
+      _world.addGameObject(this)
+      _children.foreach(_._world = newWorld)
 
   def hasWorld: Boolean =
     _destroy_check()
@@ -66,10 +67,9 @@ class GameObject {
     else if (!hasParent) {
       _parent = newParent
       newParent.addChild(this)
-      if (world == newParent.world)
+      if (hasWorld)
         world.removeGameObject(this)
-      else
-        world = _parent.world
+      _world = _parent.world
     }
     else if (hasParent)
       parent = null

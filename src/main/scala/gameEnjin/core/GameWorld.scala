@@ -29,8 +29,10 @@ class GameWorld() extends App {
       throw new Exception("ERROR: Trying to set world on a game object with a parent (name: " + go.name + "). " +
         "If this is the intention, remove the child from its parent first. ")
     if (!_gameObjectsToAdd.contains(go))
-      _gameObjectsToAdd = go :: _gameObjectsToAdd
-      _gameObjectsToRemove = _gameObjectsToRemove.filterNot(_ == go)
+      if (_gameObjectsToRemove.contains(go))
+        _gameObjectsToRemove = _gameObjectsToRemove.filterNot(_ == go)
+      else
+        _gameObjectsToAdd = go :: _gameObjectsToAdd
       go.world = this
 
   /**
@@ -41,8 +43,10 @@ class GameWorld() extends App {
       "If this is the intention, remove the child from its parent first. " +
       "\n If you want to delete this game object instead, use its destroy() method.")
     if (!_gameObjectsToRemove.contains(go))
-      _gameObjectsToRemove = go :: _gameObjectsToRemove
-      _gameObjectsToAdd = _gameObjectsToAdd.filterNot(_ == go)
+      if (_gameObjectsToAdd.contains(go))
+        _gameObjectsToAdd = _gameObjectsToAdd.filterNot(_ == go)
+      else
+        _gameObjectsToRemove = go :: _gameObjectsToRemove
       go.world = null
       println("Removed " + go.name)
 
