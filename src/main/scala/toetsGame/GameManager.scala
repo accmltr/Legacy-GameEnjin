@@ -48,5 +48,5 @@ class GameManager extends GameObjectComponent {
   def win(kar: Karretjie): Unit =
     winCount += 1
     println(kar.name + " het " + winCount + "de gekom!")
-    kar.world = null
+    kar.destroy()
 }

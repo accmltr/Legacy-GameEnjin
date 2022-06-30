@@ -75,13 +75,10 @@ class GameWorld() extends App {
     // Run game:
     physics.step(scene, deltaTime)
     gameEnjin.utils.forAllGameObjectsAndChildren(scene,
-      (o: GameObject) => {
+      (o: GameObject) =>
         if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
-          println(_gameObjectsToRemove)
           o.components.foreach(_.update(deltaTime))
-        else
-          println("Trying to update removed game object: " + o.name)
-      })
+      )
     val filteredScene = filterScene // Adds and removes game objects from loop
     drawer.draw(filteredScene)
     //

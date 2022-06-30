@@ -11,7 +11,6 @@ class Karretjie extends GameObject {
   var finishLine: Float = 100
   var gameManager: GameManager = _
   var stopped = false
-  var done: Boolean = false
 
   // Kar script:
   addComponent(new GameObjectComponent {
@@ -19,10 +18,8 @@ class Karretjie extends GameObject {
     override def update(delta: Float): Unit =
       if (stopped) return
       position += Vector2.right * speed * delta
-      if (done) println("Update ran even though 'done' is true!!!")
       if (position.x + 7 > finishLine)
         gameManager.win(gameObject.asInstanceOf[Karretjie])
-        done = true
   })
 
   // Kar body:
