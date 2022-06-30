@@ -2,7 +2,7 @@ package toetsGame
 
 import gameEnjin.core.{GameObject, GameObjectComponent}
 import gameEnjin.geometry.{CircleShape, PolygonShape, Vector2}
-import gameEnjin.rendering.{CircleVisualData, Color}
+import gameEnjin.rendering.{CircleVisualData, Color, PolygonVisualData}
 
 import scala.util.Random
 
@@ -11,6 +11,7 @@ class GameManager extends GameObjectComponent {
   var racerCount: Int = 5
   var racerSpacing: Float = 20
   var leftMargin: Float = 20
+  var finishLine: Int = 300
   var winCount: Int = 0
 
   var karretjies: List[Karretjie] = Nil
@@ -19,8 +20,14 @@ class GameManager extends GameObjectComponent {
     if (!has) {
       // Do _ready() code:
       println(gameObject.name + " is ready!")
-      println("world.FPS = " + gameObject.world.FPS)
-      println("world.physics = " + gameObject.world.physics)
+
+      // Add finish line visuals:
+      gameObject.addComponent(new PolygonVisualData(
+        PolygonShape(
+          List(Vector2(finishLine, 0),Vector2(finishLine+5, 0),
+            Vector2(finishLine+5, racerSpacing*(racerCount+1)),Vector2(finishLine, racerSpacing*(racerCount+1)))
+        ),
+        Color(1,.5,0)))
 
       val varianceF: Float = 5
       for (i <- 1 to racerCount)
@@ -32,6 +39,7 @@ class GameManager extends GameObjectComponent {
           parent = gameObject
         }
         kar.gameManager = this
+        kar.finishLine = finishLine
         karretjies = kar :: karretjies
 
       has = true
@@ -40,5 +48,5 @@ class GameManager extends GameObjectComponent {
   def win(kar: Karretjie): Unit =
     winCount += 1
     println(kar.name + " het " + winCount + "de gekom!")
-    kar.destroy()
+    kar.world = null
 }

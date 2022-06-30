@@ -28,7 +28,7 @@ class GameWorld() extends App {
     if (go.hasParent)
       throw new Exception("ERROR: Trying to set world on a game object with a parent (name: " + go.name + "). " +
         "If this is the intention, remove the child from its parent first. ")
-    if(!_gameObjectsToAdd.contains(go))
+    if (!_gameObjectsToAdd.contains(go))
       _gameObjectsToAdd = go :: _gameObjectsToAdd
       _gameObjectsToRemove = _gameObjectsToRemove.filterNot(_ == go)
       go.world = this
@@ -40,10 +40,11 @@ class GameWorld() extends App {
     if (go.hasParent) throw new Exception("ERROR: Trying to remove world on a game object with a parent (name: " + go.name + "). " +
       "If this is the intention, remove the child from its parent first. " +
       "\n If you want to delete this game object instead, use its destroy() method.")
-    if(!_gameObjectsToRemove.contains(go))
+    if (!_gameObjectsToRemove.contains(go))
       _gameObjectsToRemove = go :: _gameObjectsToRemove
       _gameObjectsToAdd = _gameObjectsToAdd.filterNot(_ == go)
       go.world = null
+      println("Removed " + go.name)
 
   def start(scene: List[GameObject]): Unit =
     if (_running) throw new Exception("ERROR: Trying to .start() on game world that is already running.")
@@ -74,9 +75,13 @@ class GameWorld() extends App {
     // Run game:
     physics.step(scene, deltaTime)
     gameEnjin.utils.forAllGameObjectsAndChildren(scene,
-      (o: GameObject) =>
+      (o: GameObject) => {
         if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
-          o.components.foreach(_.update(deltaTime)))
+          println(_gameObjectsToRemove)
+          o.components.foreach(_.update(deltaTime))
+        else
+          println("Trying to update removed game object: " + o.name)
+      })
     val filteredScene = filterScene // Adds and removes game objects from loop
     drawer.draw(filteredScene)
     //
