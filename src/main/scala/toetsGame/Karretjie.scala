@@ -7,7 +7,7 @@ import gameEnjin.rendering.{Color, PolygonVisualData}
 
 class Karretjie extends GameObject {
   name = "Karretjie"
-  var speed: Float = 25
+  var speed: Float = 45
   var finishLine: Float = 100
   var gameManager: GameManager = _
   var stopped = false
@@ -16,10 +16,13 @@ class Karretjie extends GameObject {
   addComponent(new GameObjectComponent {
 
     override def update(delta: Float): Unit =
-      if (stopped) return
+      if (stopped)
+        println("Stopped, but still being called!")
+        return;
       position += Vector2.right * speed * delta
       if (position.x + 7 > finishLine)
         gameManager.win(gameObject.asInstanceOf[Karretjie])
+        stopped = true
   })
 
   // Kar body:

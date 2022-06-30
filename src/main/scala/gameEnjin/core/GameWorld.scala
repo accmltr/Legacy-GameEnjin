@@ -1,7 +1,7 @@
 package gameEnjin.core
 
 import gameEnjin.geometry.{CircleShape, Vector2}
-import gameEnjin.physics.{Physics, Rigidbody}
+import gameEnjin.physics.PhysicsEngine
 import gameEnjin.rendering.swing.SwingDrawer
 import gameEnjin.rendering.{CircleVisualData, Color, Drawer}
 
@@ -10,7 +10,7 @@ import scala.swing.Graphics2D
 
 class GameWorld() extends App {
 
-  val physics: Physics = new Physics
+  val physics: PhysicsEngine = new PhysicsEngine
   val drawer: Drawer = new SwingDrawer
 
   private var _FPS: Int = 60
@@ -78,7 +78,7 @@ class GameWorld() extends App {
 
     // Run game:
     physics.step(scene, deltaTime)
-    gameEnjin.utils.forAllGameObjectsAndChildren(scene,
+    gameEnjin.utils.forAllGameObjectsAndChildren(scene.filterNot(_gameObjectsToRemove.contains(_)),
       (o: GameObject) =>
         if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
           o.components.foreach(_.update(deltaTime))

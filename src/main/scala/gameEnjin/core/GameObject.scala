@@ -25,8 +25,8 @@ class GameObject {
     _destroy_check()
     parent = null
     world = null
-    _children.foreach(_._isDestroyed = true)
     _isDestroyed = true
+    _children.foreach(_._isDestroyed = true)
 
   def world: GameWorld =
     _destroy_check()
@@ -70,6 +70,7 @@ class GameObject {
       if (hasWorld)
         world.removeGameObject(this)
       _world = _parent.world
+      children.foreach(_._world = _world)
     }
     else if (hasParent)
       parent = null
