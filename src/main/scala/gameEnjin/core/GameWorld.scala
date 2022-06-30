@@ -11,7 +11,7 @@ import scala.swing.Graphics2D
 class GameWorld() extends App {
 
   val physics: PhysicsEngine = new PhysicsEngine
-  val drawer: Drawer = new SwingDrawer
+  val drawer: Drawer = new SwingDrawer(this)
 
   private var _FPS: Int = 60
   private var _frameDuration: Long = (1000000000 / _FPS.toDouble).toLong // The desired frame duration, in nano-seconds.
@@ -79,19 +79,22 @@ class GameWorld() extends App {
     // Run game:
     physics.step(scene, deltaTime)
     gameEnjin.utils.forAllGameObjectsAndChildren(scene,
-      (o: GameObject) =>
+      (o: GameObject) => {
         if (!_running) println("World HAS STOPPED")
         if (_gameObjectsToRemove.contains(o)) println("Found object to that is removed! -> " + o.name)
         if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
           _update_components(o.components, deltaTime)
+
           @tailrec
-          def _update_components(cRemaining: List[GameObjectComponent], dTime:Float):Unit =
+          def _update_components(cRemaining: List[GameObjectComponent], dTime: Float): Unit =
             if (cRemaining.isEmpty) return;
             cRemaining.head.update(dTime)
-            if (o.isDestroyed)
-              return;
-            _update_components(cRemaining.tail, dTime)
-
+            if (!_running)
+              println("Die wereld het gestop.")
+            if (o.world == this)
+              _update_components(cRemaining.tail, dTime)
+      },
+      this
     )
     val filteredScene = filterScene // Adds and removes game objects from loop
     drawer.draw(filteredScene)

@@ -1,14 +1,14 @@
 package gameEnjin.rendering.swing
 
-import gameEnjin.core.GameObject
-import gameEnjin.geometry._
-import gameEnjin.rendering._
+import gameEnjin.core.{GameObject, GameWorld}
+import gameEnjin.geometry.*
+import gameEnjin.rendering.*
 
 import java.awt.Graphics
 import javax.swing.{JFrame, JPanel, WindowConstants}
 import scala.swing.{Dimension, Graphics2D}
 
-class SwingDrawer extends Drawer {
+class SwingDrawer(world: GameWorld) extends Drawer(world) {
 
   var _gameObjects: List[GameObject] = Nil
   var _g2d: Graphics2D = null
@@ -31,7 +31,7 @@ class SwingDrawer extends Drawer {
 
   private def onPaint(graphics2D: Graphics2D) =
     _g2d = graphics2D
-    gameEnjin.utils.forAllGameObjectsAndChildren(_gameObjects, o => o.getComponents[VisualData].foreach(_.draw(this)))
+    gameEnjin.utils.forAllGameObjectsAndChildren(_gameObjects, o => o.getComponents[VisualData].foreach(_.draw(this)),world)
 
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects

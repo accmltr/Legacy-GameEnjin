@@ -1,14 +1,12 @@
 package gameEnjin
 
-import gameEnjin.core.GameObject
+import gameEnjin.core.{GameObject, GameWorld}
 
 package object utils {
-  def forAllGameObjectsAndChildren(gameObjects: List[GameObject], f: GameObject => Unit): Unit =
+  def forAllGameObjectsAndChildren(gameObjects: List[GameObject], f: GameObject => Unit, world: GameWorld): Unit =
     gameObjects.foreach { o =>
-      if (!o.world.running) println("World HAS STOPPED")
-      if (o.isDestroyed) println("Found a destroyed object! -> "+o.name)
-      if (!o.isDestroyed)
-        f(o)
-        forAllGameObjectsAndChildren(o.children, f)
+      f(o)
+      if (o.world == world)
+        forAllGameObjectsAndChildren(o.children, f,world)
     }
 }
