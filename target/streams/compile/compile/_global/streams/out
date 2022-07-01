@@ -1,0 +1,9 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\johan\IdeaProjects\GameEnjin\src\main\scala\gameEnjin\core\GameWorld.scala:9:13 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m9 |[0m[33mimport[0m scala.swing.Graphics2D[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value swing is not a member of scala - did you mean scala.Long?[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\johan\IdeaProjects\GameEnjin\src\main\scala\gameEnjin\rendering\swing\SwingDrawer.scala:9:13 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m9 |[0m[33mimport[0m scala.swing.{Dimension, Graphics2D}[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m  |[0m       ^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m  |[0m       value swing is not a member of scala - did you mean scala.Long?[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
