@@ -88,8 +88,7 @@ class GameWorld() extends App {
           @tailrec
           def _update_components(cRemaining: List[GameObjectComponent], dTime: Float): Boolean = {
             if (cRemaining.isEmpty) return true
-            if (!cRemaining.head._special_try_start())
-              cRemaining.head.update(dTime)
+            cRemaining.head._special_access_update(deltaTime)
             if (o.isDestroyed)
               return false
             if (o.world != this)

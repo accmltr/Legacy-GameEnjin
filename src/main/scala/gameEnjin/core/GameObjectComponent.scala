@@ -5,14 +5,15 @@ trait GameObjectComponent {
   private var _started: Boolean = false
 
   /**
-   * Used by the game engine to try and start components.
+   * Used by the game engine to call update()
+   *
+   * Note: methods starting with _special_access are used by the game engine, and are not intended for use in game development.
    */
-  def _special_try_start(): Boolean =
+  def _special_access_update(delta: Float): Unit =
     if (!_started)
       start()
       _started = true
-      true
-    else false
+    else update(delta)
 
   /**
    * Called once when a component becomes part of the game loop for the first time.
