@@ -5,6 +5,7 @@ import gameEnjin.geometry.Vector2
 import scala.reflect.ClassTag
 
 class GameObject {
+  /** Use this to give your game object a name. */
   var name: String = "Unnamed GameObject"
   private var _isDestroyed: Boolean = false
   private var _world: GameWorld = _
@@ -13,14 +14,21 @@ class GameObject {
   var local_position: Vector2 = Vector2.zero
   var components: List[GameObjectComponent] = List.empty
 
+  /** Important check to see if you've destroyed this object or not. Trying to access a destroyed game object should be avoided,
+   * and any member(property or method) of the GameObject class will throw an exception if you try to use it on a destroyed game object. */
   def isDestroyed: Boolean = _isDestroyed
 
-  def _destroy_check(): Unit =
+  /**
+   * Check used locally to throw Exception if someone accesses one of GameObject's members.
+   */
+  private def _destroy_check(): Unit =
     if (_isDestroyed) throw new Exception("Trying to access a destroyed GameObject: \'"+name+"\'.isDestroyed == true" +
       "\n If you would like to remove a GameObject from the game loop, but still keep it around, use GameObject.world = null. " +
       "And, if you would like to make it part of a game loop again, use GameObject.world = someWorld. (This can also be " +
       "used to move GameObjects from one world over to another)")
 
+  /** Destroys this game object by removing it from the game world loop and its parents, and by setting isDestroyed to true
+   * [see GameObject.isDestroyed for more info]. */
   def destroy(): Unit =
     _destroy_check()
     parent = null
@@ -28,10 +36,20 @@ class GameObject {
     _isDestroyed = true
     _children.foreach(_._isDestroyed = true)
 
+  /** The world (GameWorld) this game object currently belongs to.
+   *
+   * If world is null, it means this game object won't receive any callbacks, like GameObject.update()*/
   def world: GameWorld =
     _destroy_check()
     _world
 
+  /**
+   * Use this to set the world of a game object, and make it part of that world's loop.
+   *
+   * Generally used to make newly created game objects a part of the game world, without having to give them parents
+   * (when setting a game object's parent, their world is set to the parent's world automatically).
+   *
+   * It can also be used to temporarily remove game objects from your game world, or transfer them to another world. */
   def world_=(newWorld: GameWorld): Unit =
     _destroy_check()
     if (newWorld == _world) return;
@@ -46,14 +64,17 @@ class GameObject {
       _world.addGameObject(this)
       _children.foreach(_._world = newWorld)
 
+  /** Shorthand for checking if this game object's world is not equal to `null`.*/
   def hasWorld: Boolean =
     _destroy_check()
     _world != null
 
+  /** This game object's current parent.*/
   def parent: GameObject =
     _destroy_check()
     _parent
 
+  /** Used to  */
   def parent_=(newParent: GameObject): Unit =
     _destroy_check()
     if (parent == newParent) return;
