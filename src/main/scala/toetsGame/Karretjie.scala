@@ -14,6 +14,7 @@ class Karretjie extends GameObject {
 
   // Kar script:
   addComponent(new GameObjectComponent {
+    override def start(): Unit = {}
 
     override def update(delta: Float): Unit =
       if (stopped)
