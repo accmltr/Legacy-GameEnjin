@@ -24,10 +24,10 @@ class GameManager extends GameObjectComponent {
       // Add finish line visuals:
       gameObject.addComponent(new PolygonVisualData(
         PolygonShape(
-          List(Vector2(finishLine, 0),Vector2(finishLine+5, 0),
-            Vector2(finishLine+5, racerSpacing*(racerCount+1)),Vector2(finishLine, racerSpacing*(racerCount+1)))
+          List(Vector2(finishLine, 0), Vector2(finishLine + 5, 0),
+            Vector2(finishLine + 5, racerSpacing * (racerCount + 1)), Vector2(finishLine, racerSpacing * (racerCount + 1)))
         ),
-        Color(1,.5,0)))
+        Color(1, .5, 0)))
 
       val varianceF: Float = 5
       for (i <- 1 to racerCount)
@@ -44,11 +44,12 @@ class GameManager extends GameObjectComponent {
 
       has = true
     }
+    else {
+      // Do usual update stuff
+    }
 
   def win(kar: Karretjie): Unit =
     winCount += 1
     println(kar.name + " het " + winCount + "de gekom!")
     kar.destroy()
-    println("kar destroyed, stopping world")
-    gameObject.world.stop()
 }

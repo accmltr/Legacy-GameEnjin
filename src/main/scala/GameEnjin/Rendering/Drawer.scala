@@ -8,7 +8,11 @@ trait Drawer(val world:GameWorld) {
   def draw(gameObjects: List[GameObject]): Unit =
     gameEnjin.utils.forAllGameObjectsAndChildren(
       gameObjects,
-      o => o.getComponents[VisualData].foreach(_.draw(this)),
+      o => {
+        o.getComponents[VisualData].foreach(_.draw(this))
+        true
+      }
+      ,
       world
     )
 

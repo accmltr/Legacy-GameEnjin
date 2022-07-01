@@ -81,18 +81,24 @@ class GameWorld() extends App {
     gameEnjin.utils.forAllGameObjectsAndChildren(scene,
       (o: GameObject) => {
         if (!_running) println("World HAS STOPPED")
-        if (_gameObjectsToRemove.contains(o)) println("Found object to that is removed! -> " + o.name)
-        if (!_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
-          _update_components(o.components, deltaTime)
-
+        if (_gameObjectsToRemove.contains(o)) // Make sure not to process objects just deleted by components.
+          println("Found object to that is removed! -> " + o.name)
+          false // Don't move on to processing this game object's children with this function. [Look at utils.forAllGameObjectsAndChildren for more information]
+        else
           @tailrec
-          def _update_components(cRemaining: List[GameObjectComponent], dTime: Float): Unit =
-            if (cRemaining.isEmpty) return;
+          def _update_components(cRemaining: List[GameObjectComponent], dTime: Float): Boolean = {
+            if (cRemaining.isEmpty) return true
             cRemaining.head.update(dTime)
+            if (o.isDestroyed)
+              return false
+            if (o.world != this)
+              return false
             if (!_running)
               println("Die wereld het gestop.")
-            if (o.world == this)
-              _update_components(cRemaining.tail, dTime)
+            _update_components(cRemaining.tail, dTime)
+          }
+
+          _update_components(o.components, deltaTime)
       },
       this
     )
@@ -110,6 +116,9 @@ class GameWorld() extends App {
     loop(filteredScene, frameStartTime)
 
 
+  /**
+   *  Stops the game world at the end of the current frame.
+   */
   def stop(): Unit = _running = false
 
   def running = _running
