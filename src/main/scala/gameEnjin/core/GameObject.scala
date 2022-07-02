@@ -153,6 +153,7 @@ class GameObject {
     components = components :+ c
     c.gameObject = this
 
+  /** Removes component from GameObject, and sets its internal state to 'deleted'. */
   def deleteComponent(c: GameObjectComponent): Unit =
     _destroy_check()
     components = components.filter(_ != c)
