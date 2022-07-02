@@ -56,6 +56,7 @@ class GameWorld() extends App {
     // Set the "world" property on all game objects in "scene":
     // (using "_gameObjectsToAdd" instead of "scene", in case there is a callback in the future
     // for GameObject.onWorldSet, where code could add more game objects to the world before loop() runs.)
+    if (scene.exists(_.hasParent)) throw new Exception("GameWolrd.start(scene): All game objects in given scene should be parent-less.")
     scene.foreach(_.world = this)
     val temp = _gameObjectsToAdd
     _gameObjectsToAdd = Nil

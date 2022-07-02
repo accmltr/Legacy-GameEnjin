@@ -11,6 +11,7 @@ class GameObject {
   private var _world: GameWorld = _
   private var _parent: GameObject = _
   private var _children: List[GameObject] = Nil
+  /** This game object's position relative to its parent. */
   var local_position: Vector2 = Vector2.zero
   var components: List[GameObjectComponent] = List.empty
 
@@ -64,7 +65,7 @@ class GameObject {
       _world.addGameObject(this)
       _children.foreach(_._world = newWorld)
 
-  /** Shorthand for checking if this game object's world is not equal to `null`.*/
+  /** Shorthand for: `this.world != null`*/
   def hasWorld: Boolean =
     _destroy_check()
     _world != null
@@ -74,7 +75,19 @@ class GameObject {
     _destroy_check()
     _parent
 
-  /** Used to  */
+  /** Used to add game object to new parent (will automatically remove old one).
+   *
+   * Is analogous to:
+   *
+   * `parent = null; parent = newParent`
+   *
+   * and
+   *
+   * `parent.removeChild(this); newParent.addChild(this)`
+   *
+   * Setting parent to null, removes this game object from the parent and adds it as a parent-less game object to the
+   * world it currently belongs to.
+   * */
   def parent_=(newParent: GameObject): Unit =
     _destroy_check()
     if (parent == newParent) return;
@@ -97,6 +110,7 @@ class GameObject {
       parent = null
       parent = newParent
 
+  /** Shorthand for: `this.parent != null`*/
   def hasParent: Boolean =
     _destroy_check()
     parent != null
@@ -115,6 +129,8 @@ class GameObject {
     _children = _children :+ go
     go.parent = this
 
+  /** Removes child -the given game object- from this game object's children and adds the it to it's current game world,
+   * as a parent-less game object.*/
   def removeChild(go: GameObject): Unit =
     _destroy_check()
     if (!hasChild(go)) return;
@@ -122,10 +138,12 @@ class GameObject {
     go.local_position = go.position
     go.parent = null
 
+  /** This game object's position in world space. */
   def position: Vector2 =
     _destroy_check()
     if (hasParent) parent.position + local_position else local_position
 
+  /** Set this game object's global/world position. */
   def position_=(newPos: Vector2): Unit =
     _destroy_check()
     if (hasParent) local_position = newPos - parent.position else local_position = newPos
