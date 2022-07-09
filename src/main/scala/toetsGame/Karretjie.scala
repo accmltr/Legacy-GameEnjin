@@ -3,7 +3,7 @@ package toetsGame
 import gameEnjin.core.{GameObject, GameObjectComponent}
 import gameEnjin.geometry.{PolygonShape, Vector2}
 import gameEnjin.physics.Rigidbody
-import gameEnjin.rendering.{Color, PolygonVisualData}
+import gameEnjin.rendering.{Color, PolygonVisualData, StringVisualData}
 
 class Karretjie extends GameObject {
   name = "Karretjie"

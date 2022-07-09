@@ -6,7 +6,7 @@ import gameEnjin.rendering.*
 
 import java.awt.Graphics
 import javax.swing.{JFrame, JPanel, WindowConstants}
-import scala.swing.{Dimension, Graphics2D}
+import scala.swing.{Dimension, Font, Graphics2D}
 
 class SwingDrawer(world: GameWorld) extends Drawer(world) {
 
@@ -42,6 +42,10 @@ class SwingDrawer(world: GameWorld) extends Drawer(world) {
   override def draw(gameObjects: List[GameObject]): Unit =
     _gameObjects = gameObjects
     jpanel.repaint()
+
+  override def drawString(position: Vector2, text: String, color:Color = Color.black): Unit =
+    _g2d.setPaint(color.asAwtColor)
+    _g2d.drawString(text, position.x, position.y)
 
   override def drawCricle(position: Vector2, radius: Float, color: Color): Unit =
     _g2d.setPaint(color.asAwtColor)

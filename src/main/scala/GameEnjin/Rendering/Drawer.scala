@@ -16,6 +16,7 @@ trait Drawer(val world:GameWorld) {
       world
     )
 
+  def drawString(position: Vector2, text: String, color:Color = Color.black): Unit
   def drawCricle(position: Vector2, radius: Float, color: Color): Unit
   def drawPolygon(position: Vector2, polygon:PolygonShape, color: Color): Unit
 }

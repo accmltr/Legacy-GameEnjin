@@ -13,4 +13,5 @@ class Color(val r: Float, val g: Float, val b: Float) {
 object Color {
   def apply(r: Float, g: Float, b: Float) = new Color(r, g, b)
   def black = Color(0, 0, 0)
+  def white = Color(1,1,1)
 }

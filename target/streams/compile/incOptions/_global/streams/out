@@ -1,7 +1,71 @@
-[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = C:\Users\johan\IdeaProjects\GameEnjin\target\scala-3.1.3\classes.bak[0m
-[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0mRolling back changes to class files.[0m
-[0m[[0m[0mdebug[0m] [0m[0mRemoving generated classes:[0m
-[0m[[0m[0mdebug[0m] [0m[0mRestoring class files: [0m
-[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: C:\Users\johan\IdeaProjects\GameEnjin\target\scala-3.1.3\classes.bak[0m
+[debug] Created transactional ClassFileManager with tempDir = C:\Users\johan\IdeaProjects\GameEnjin\target\scala-3.1.3\classes.bak
+[debug] About to delete class files:
+[debug] We backup class files:
+[debug] Registering generated classes:
+[debug] 	Color$.class
+[debug] 	package.class
+[debug] 	GameManager$$anon$1.class
+[debug] 	EenvoudigeGame$$anon$1.class
+[debug] 	GameObject.class
+[debug] 	PolygonVisualData.class
+[debug] 	CircleVisualData.class
+[debug] 	package.class
+[debug] 	CircleShape.class
+[debug] 	Color.class
+[debug] 	package$.class
+[debug] 	SwingDrawer$$anon$1.class
+[debug] 	GameWorld.class
+[debug] 	Vector2$.class
+[debug] 	SwingDrawer.class
+[debug] 	PhysicsEngine.class
+[debug] 	PolygonShape.class
+[debug] 	VisualData.class
+[debug] 	Drawer.class
+[debug] 	Vector2.class
+[debug] 	Karretjie$$anon$1.class
+[debug] 	CircleShape$.class
+[debug] 	EenvoudigeGame.class
+[debug] 	Karretjie$$anon$2.class
+[debug] 	Karretjie$$anon$3.class
+[debug] 	GameObjectComponent.class
+[debug] 	Karretjie.class
+[debug] 	Shape.class
+[debug] 	Rigidbody.class
+[debug] 	package$.class
+[debug] 	EenvoudigeGame$.class
+[debug] 	GameManager.class
+[debug] 	PolygonShape$.class
+[debug] 	Color$.tasty
+[debug] 	package.tasty
+[debug] 	GameManager$$anon$1.tasty
+[debug] 	EenvoudigeGame$$anon$1.tasty
+[debug] 	GameObject.tasty
+[debug] 	PolygonVisualData.tasty
+[debug] 	CircleVisualData.tasty
+[debug] 	package.tasty
+[debug] 	CircleShape.tasty
+[debug] 	Color.tasty
+[debug] 	package$.tasty
+[debug] 	SwingDrawer$$anon$1.tasty
+[debug] 	GameWorld.tasty
+[debug] 	Vector2$.tasty
+[debug] 	SwingDrawer.tasty
+[debug] 	PhysicsEngine.tasty
+[debug] 	PolygonShape.tasty
+[debug] 	VisualData.tasty
+[debug] 	Drawer.tasty
+[debug] 	Vector2.tasty
+[debug] 	Karretjie$$anon$1.tasty
+[debug] 	CircleShape$.tasty
+[debug] 	EenvoudigeGame.tasty
+[debug] 	Karretjie$$anon$2.tasty
+[debug] 	Karretjie$$anon$3.tasty
+[debug] 	GameObjectComponent.tasty
+[debug] 	Karretjie.tasty
+[debug] 	Shape.tasty
+[debug] 	Rigidbody.tasty
+[debug] 	package$.tasty
+[debug] 	EenvoudigeGame$.tasty
+[debug] 	GameManager.tasty
+[debug] 	PolygonShape$.tasty
+[debug] Removing the temporary directory used for backing up class files: C:\Users\johan\IdeaProjects\GameEnjin\target\scala-3.1.3\classes.bak
