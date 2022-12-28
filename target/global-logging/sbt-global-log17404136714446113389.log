@@ -1,9 +1,0 @@
-[debug] > Exec(package, None, None)
-[debug] Evaluating tasks: Compile / package
-[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
-[info] compiling 18 Scala sources to C:\Users\johan\IdeaProjects\GameEnjin\target\scala-3.1.3\classes ...
-[warn] there were 5 deprecation warnings; re-run with -deprecation for details
-[warn] one warning found
-[info] done compiling
-[success] Total time: 5 s, completed 9/07/2022, 5:51:06 pm
-[debug] > Exec(idea-shell, None, None)
