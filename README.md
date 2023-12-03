@@ -1,3 +1,6 @@
+# Note
+A new version of the engine is being written with many major changes to the project structure its API, along with a switch to using OpenGL for cross-platform input management, window management, audio and rendering.
+
 # Game Enjin
 
 Game Enjin is a 2D game engine made for prototyping game mechanics using the Scala programming language.
